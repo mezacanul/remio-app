@@ -1,25 +1,42 @@
-import { useState } from "react";
+import { loadHook } from "lattice-design";
 import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
   Text,
-  TextInput,
   TouchableWithoutFeedback,
-  View,
+  View
 } from "react-native";
 import Button from "../components/Button";
-import Layout from "../components/Layout";
+import InputUnderline from "../components/InputUnderline";
 
 export default function Onboarding({ navigation }) {
-    const [total, setTotal] = useState("");
+    const [cuenta, setCuenta] = loadHook("useCuenta");
+    // const [total, setTotal] = useState("");
 
     const isGreaterThanZero = (total) => {
         const number = total.replace("$", "");
         return Number(number) > 0;
     };
+
+    const handleTotalChange = (text) => {
+        const number = text.replace("$", "");
+        if (number == "") {
+            setCuenta({
+                ...cuenta,
+                total: "",
+            });
+        } else {
+            setCuenta({
+                ...cuenta,
+                total: `$${number}`,
+            });
+        }
+    };
+    
     return (
-        <Layout>
+        // <Layout>
+        <>
             <KeyboardAvoidingView
                 // behavior="padding"
                 style={{
@@ -56,51 +73,34 @@ export default function Onboarding({ navigation }) {
                         >
                             Total de la cuenta
                         </Text>
-                        <TextInput
-                            value={total}
+                        <InputUnderline
+                            value={cuenta.total}
                             placeholder="$0.00"
-                            returnKeyType="done"
-                            onSubmitEditing={() =>
-                                Keyboard.dismiss()
-                            }
-                            placeholderTextColor="gray"
                             keyboardType="numeric"
-                            onChangeText={(text) => {
-                                const number = text.replace(
-                                    "$",
-                                    ""
-                                );
-                                if (number == "") {
-                                    setTotal("");
-                                } else {
-                                    setTotal(`$${number}`);
-                                }
-                            }}
-                            style={{
-                                fontSize: 25,
-                                borderBottomWidth: 1,
-                                borderColor: "gray",
-                                paddingBottom: 8,
-                                width: "50%",
-                                textAlign: "center",
-                                fontWeight: "bold",
-                            }}
+                            onChangeText={handleTotalChange}
                         />
 
                         <Button
                             title="Siguiente"
-                            onPress={() => {}}
+                            onPress={() => {
+                                Keyboard.dismiss();
+                                navigation.navigate(
+                                    "PreOptions"
+                                );
+                            }}
                             style={{
                                 width: "40%",
                             }}
                             disabled={
-                                !isGreaterThanZero(total) ||
-                                total == ""
+                                !isGreaterThanZero(
+                                    cuenta.total
+                                ) || cuenta.total == ""
                             }
                         />
                     </View>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
-        </Layout>
+        </>
+        // </Layout>
     );
 }

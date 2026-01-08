@@ -5,6 +5,7 @@ export default function Button({
     onPress,
     style,
     disabled,
+    fw,
 }) {
     return (
         <TouchableOpacity
@@ -23,7 +24,7 @@ export default function Button({
                     color: "white",
                     fontSize: 16,
                     textAlign: "center",
-                    fontWeight: "bold",
+                    fontWeight: fw || "bold",
                 }}
             >
                 {title}
