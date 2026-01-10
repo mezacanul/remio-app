@@ -1,4 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
+import { Martini } from "lucide-react-native";
 import { StyleSheet, Text, View } from "react-native";
 export default function Header() {
     return (
@@ -14,7 +15,15 @@ export default function Header() {
 }
 
 function Logo() {
-    return <Text style={styles.logo}>{"REMIU"}</Text>;
+    return (
+        <View style={styles.logoContainer}>
+            <Martini
+                size={20}
+                color="blue"
+            />
+            <Text style={styles.logo}>{"REMIU"}</Text>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
@@ -32,8 +41,13 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "blue",
         // textDecorationLine: "underline",
-        borderBottomWidth: 2,
+        borderBottomWidth: 1.5,
         borderBottomColor: "blue",
         // paddingBottom: 1,
+    },
+    logoContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 2,
     },
 });
