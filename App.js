@@ -3,9 +3,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { Nexus, Singleton } from "lattice-design";
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import Layout from "./components/common/Layout";
 import Calculator from "./screens/Calculator";
+import Home from "./screens/Home";
 import Onboarding from "./screens/Onboarding";
 import PreOptions from "./screens/PreOptions";
 
@@ -21,40 +22,42 @@ Nexus({
 
 export default function App() {
     return (
-        <>
+        <SafeAreaProvider style={{ flex: 1 }}>
             <StatusBar
                 style="dark"
-                backgroundColor="#fff"
+                backgroundColor="transparent"
                 animated={true}
-                // edgeToEdgeEnabled={true}
                 translucent={true}
             />
             <NavigationContainer>
-                <SafeAreaView style={{ flex: 1 }}>
-                    <Layout>
-                        <Stack.Navigator
-                            initialRouteName="Onboarding"
-                            screenOptions={{
-                                headerShown: false,
-                                animation: "none",
-                            }}
-                        >
-                            <Stack.Screen
-                                name="Onboarding"
-                                component={Onboarding}
-                            />
-                            <Stack.Screen
-                                name="PreOptions"
-                                component={PreOptions}
-                            />
-                            <Stack.Screen
-                                name="Calculator"
-                                component={Calculator}
-                            />
-                        </Stack.Navigator>
-                    </Layout>
-                </SafeAreaView>
+                <Layout>
+                    <Stack.Navigator
+                        initialRouteName="Home"
+                        screenOptions={{
+                            headerShown: false,
+                            animation: "none",
+                        }}
+                        backgroundColor="transparent"
+                    >
+                        <Stack.Screen
+                            name="Home"
+                            component={Home}
+                        />
+                        <Stack.Screen
+                            name="Onboarding"
+                            component={Onboarding}
+                        />
+                        <Stack.Screen
+                            name="PreOptions"
+                            component={PreOptions}
+                        />
+                        <Stack.Screen
+                            name="Calculator"
+                            component={Calculator}
+                        />
+                    </Stack.Navigator>
+                </Layout>
             </NavigationContainer>
-        </>
+        </SafeAreaProvider>
     );
 }
