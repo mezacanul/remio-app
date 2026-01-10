@@ -1,7 +1,11 @@
+import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { loadHook } from "lattice-design";
 import { useMemo } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import CalculatorLayout from "../components/CalculatorLayout";
+import { View } from "react-native";
+import Button from "../components/common/Button";
+import CalculatorLayout from "../components/common/CalculatorLayout";
+import CuentaPartesIguales from "../components/CuentaPartesIguales";
+import CuentaPorPersona from "../components/CuentaPorPersona";
 
 export default function Calculator({ navigation }) {
     const [cuenta, setCuenta] = loadHook("useCuenta");
@@ -21,37 +25,52 @@ export default function Calculator({ navigation }) {
 
     return (
         <CalculatorLayout>
+            {cuenta.dividirPor == "partesIguales" && (
+                <CuentaPartesIguales result={result} />
+            )}
+            {cuenta.dividirPor == "persona" && (
+                <CuentaPorPersona />
+            )}
             <View
                 style={{
-                    flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    marginTop: -200,
-                    gap: 10,
+                    flexDirection: "row",
+                    gap: 5,
+                    width: "85%",
+                    marginHorizontal: "auto",
+                    marginBottom: 20,
                 }}
             >
-                <Text style={styles.infoText}>
-                    {"Corresponde a"}
-                </Text>
-                <Text
-                    style={{
-                        fontSize: 40,
-                        fontWeight: "bold",
-                        color: "green",
-                    }}
-                >{`$${result}`}</Text>
-                <Text style={styles.infoText}>
-                    {"Por persona"}
-                </Text>
+                <Button
+                    fs={14}
+                    title={"Compartir Cuenta"}
+                    icon={
+                        <FontAwesome5
+                            // name="share-social-outline"
+                            name="whatsapp"
+                            size={20}
+                            color="white"
+                            style={{ marginBottom: 2 }}
+                        />
+                    }
+                    fw={"initial"}
+                    style={{ flex: 1 }}
+                    // bgColor="green"
+                />
+                <Button
+                    fs={14}
+                    title={"Enviar Invitación"}
+                    fw={"initial"}
+                    style={{ flex: 1 }}
+                    icon={
+                        <Ionicons
+                            name="send-outline"
+                            size={20}
+                            color="white"
+                        />
+                    }
+                    // bgColor="green"
+                />
             </View>
         </CalculatorLayout>
     );
 }
-
-const styles = StyleSheet.create({
-    infoText: {
-        textAlign: "center",
-        width: "40%",
-        marginHorizontal: "auto",
-    },
-});

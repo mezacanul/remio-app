@@ -22,9 +22,12 @@ export default function CalculatorLayout({ children }) {
 
     return (
         <View style={{ flex: 1 }}>
-            <View style={{ gap: 7, marginVertical: 20 }}>
+            <View style={{ gap: 7, marginTop: 15 }}>
                 <TotalInfo />
-                {cuenta.dividirPor && <DividirPorInfo />}
+                {cuenta.dividirPor &&
+                    cuenta.dividirPor != "persona" && (
+                        <DividirPorInfo />
+                    )}
                 {cuenta.dividirPor == "partesIguales" &&
                     cuenta.personas > 0 && <PersonasInfo />}
             </View>
@@ -56,7 +59,12 @@ export default function CalculatorLayout({ children }) {
 function TotalInfo() {
     const [cuenta, setCuenta] = loadHook("useCuenta");
     return (
-        <>
+        <View
+            style={{
+                // borderWidth: 1,
+                // borderColor: "lightgray",
+            }}
+        >
             <Text
                 style={{
                     textAlign: "center",
@@ -73,7 +81,7 @@ function TotalInfo() {
             >
                 {cuenta.total}
             </Text>
-        </>
+        </View>
     );
 }
 

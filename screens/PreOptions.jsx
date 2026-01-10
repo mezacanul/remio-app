@@ -1,10 +1,10 @@
 import { loadHook } from "lattice-design";
 import { useState } from "react";
 import { Text, View } from "react-native";
-import BackButton from "../components/BackButton";
-import Button from "../components/Button";
-import CalculatorLayout from "../components/CalculatorLayout";
-import InputUnderline from "../components/InputUnderline";
+import BackButton from "../components/common/BackButton";
+import Button from "../components/common/Button";
+import CalculatorLayout from "../components/common/CalculatorLayout";
+import InputUnderline from "../components/common/InputUnderline";
 
 export default function PreOptions({ navigation }) {
     const [cuenta, setCuenta] = loadHook("useCuenta");
@@ -89,6 +89,7 @@ function PersonasInput({
         </>
     );
 }
+
 function Opciones({ navigation }) {
     const [cuenta, setCuenta] = loadHook("useCuenta");
     return (
@@ -111,6 +112,20 @@ function Opciones({ navigation }) {
                 }}
             >
                 <Button
+                    title="Por Consumo"
+                    fw="initial"
+                    style={{
+                        width: "50%",
+                    }}
+                    onPress={() => {
+                        setCuenta({
+                            ...cuenta,
+                            dividirPor: "persona",
+                        });
+                        navigation.navigate("Calculator");
+                    }}
+                />
+                <Button
                     title="En Partes Iguales"
                     fw="initial"
                     style={{
@@ -122,20 +137,6 @@ function Opciones({ navigation }) {
                             dividirPor: "partesIguales",
                         });
                         // navigation.navigate("Calculator");
-                    }}
-                />
-                <Button
-                    title="Por persona"
-                    fw="initial"
-                    style={{
-                        width: "50%",
-                    }}
-                    onPress={() => {
-                        setCuenta({
-                            ...cuenta,
-                            dividirPor: "persona",
-                        });
-                        navigation.navigate("Calculator");
                     }}
                 />
             </View>

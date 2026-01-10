@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { Nexus, Singleton } from "lattice-design";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Layout from "./components/Layout";
+import Layout from "./components/common/Layout";
 import Calculator from "./screens/Calculator";
 import Onboarding from "./screens/Onboarding";
 import PreOptions from "./screens/PreOptions";

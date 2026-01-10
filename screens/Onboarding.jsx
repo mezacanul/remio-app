@@ -1,23 +1,19 @@
 import { loadHook } from "lattice-design";
 import {
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  Text,
-  TouchableWithoutFeedback,
-  View
+    Keyboard,
+    KeyboardAvoidingView,
+    Platform,
+    Text,
+    TouchableWithoutFeedback,
+    View
 } from "react-native";
-import Button from "../components/Button";
-import InputUnderline from "../components/InputUnderline";
+import Button from "../components/common/Button";
+import InputUnderline from "../components/common/InputUnderline";
+import { isGreaterThanZero } from "../utils/main";
 
 export default function Onboarding({ navigation }) {
     const [cuenta, setCuenta] = loadHook("useCuenta");
     // const [total, setTotal] = useState("");
-
-    const isGreaterThanZero = (total) => {
-        const number = total.replace("$", "");
-        return Number(number) > 0;
-    };
 
     const handleTotalChange = (text) => {
         const number = text.replace("$", "");
