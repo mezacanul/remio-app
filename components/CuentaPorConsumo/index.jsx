@@ -1,17 +1,17 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { loadHook } from "lattice-design";
 import {
-  Check,
-  ChevronDown,
-  ChevronUp,
+    Check,
+    ChevronDown,
+    ChevronUp,
 } from "lucide-react-native";
 import { useMemo, useState } from "react";
 import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
+    Pressable,
+    StyleSheet,
+    Text,
+    TextInput,
+    View,
 } from "react-native";
 import Button from "../common/Button";
 
@@ -27,7 +27,7 @@ const defaultConsumo = {
     quantity: 0,
 };
 
-export default function CuentaPorPersona() {
+export default function CuentaPorConsumo() {
     const [cuenta, setCuenta] = loadHook("useCuenta");
     const [invitados, setInvitados] = useState([]);
     const [isAdding, setIsAdding] = useState({
@@ -72,24 +72,8 @@ export default function CuentaPorPersona() {
                 flex: 1,
                 gap: 5,
                 marginTop: 10,
-                paddingHorizontal: 20,
             }}
         >
-            {/* {faltante == 0 && (
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
-                    <CircleCheck
-                        size={20}
-                        color="green"
-                    />
-                </View>
-            )} */}
-
             <View
                 style={{
                     marginBottom: faltante != 0 ? 15 : 0,

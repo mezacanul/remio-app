@@ -1,6 +1,5 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { format } from "date-fns";
-import { es } from "date-fns/locale/es";
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import {
   FlatList,
@@ -13,33 +12,44 @@ import Button from "../components/common/Button";
 export default function MenuPrincipal() {
     const [cuentas, setCuentas] = useState([]);
 
-    function handleAddCuenta() {
-        const currentDate = format(
-            new Date(),
-            "dd 'de' MMMM",
-            {
-                locale: es,
-            }
-        );
-        setCuentas([
-            ...cuentas,
-            {
-                id: cuentas.length + 1,
-                name: "Cuenta " + (cuentas.length + 1),
-                date: currentDate,
-            },
-        ]);
-    }
+    // function handleAddCuenta(name) {
+    //     const currentDate = format(
+    //         new Date(),
+    //         "dd 'de' MMMM",
+    //         {
+    //             locale: es,
+    //         }
+    //     );
+    //     setCuentas([
+    //         ...cuentas,
+    //         {
+    //             id: cuentas.length + 1,
+    //             name: name,
+    //             date: currentDate,
+    //         },
+    //     ]);
+    //     setIsAdding(false);
+    // }
+
+    // if (isAdding) {
+    //     return (
+    //         <NuevaCuentaForm
+    //             setIsAdding={setIsAdding}
+    //             handleAddCuenta={handleAddCuenta}
+    //         />
+    //     );
+    // }
 
     return (
         <View style={homeStyles.container}>
-            <HomeHeader handleAddCuenta={handleAddCuenta} />
+            <HomeHeader />
             <MisCuentasList cuentas={cuentas} />
         </View>
     );
 }
 
-function HomeHeader({ handleAddCuenta }) {
+function HomeHeader() {
+    const navigation = useNavigation();
     return (
         <View style={homeStyles.header}>
             <Text style={homeStyles.title}>
@@ -48,7 +58,11 @@ function HomeHeader({ handleAddCuenta }) {
             <Button
                 title="+"
                 style={homeStyles.addButton}
-                onPress={handleAddCuenta}
+                // onPress={handleAddCuenta}
+                // onPress={() => setIsAdding(true)}
+                onPress={() =>
+                    navigation.navigate("NuevaCuenta")
+                }
             />
         </View>
     );
@@ -60,7 +74,7 @@ function MisCuentasList({ cuentas }) {
             {cuentas.length === 0 && (
                 <Text style={cuentasStyles.emptyListText}>
                     {
-                        "Agrega tu primera cuenta para empezar 😄"
+                        "Agrega tu primera cuenta para empezar 🥂"
                     }
                 </Text>
             )}
@@ -86,7 +100,7 @@ function TableHeader() {
     return (
         <View style={cuentasStyles.tableHeaderContainer}>
             <Text style={cuentasStyles.th}>{"Nombre"}</Text>
-            <Text style={cuentasStyles.th}>{"Creado"}</Text>
+            <Text style={cuentasStyles.th}>{"Fecha"}</Text>
         </View>
     );
 }
@@ -111,6 +125,7 @@ function CuentaItem({ cuenta }) {
 
 const homeStyles = StyleSheet.create({
     container: {
+        position: "relative",
         flex: 1,
         borderWidth: 2,
         // borderColor: "dodgerblue",

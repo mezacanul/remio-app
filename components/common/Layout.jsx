@@ -1,9 +1,12 @@
+import { loadHook } from "lattice-design";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "./Header";
 
 export default function Layout({ children }) {
     const insets = useSafeAreaInsets();
+    const [user] = loadHook("useUser");
+
     return (
         <View
             style={{
@@ -14,7 +17,7 @@ export default function Layout({ children }) {
                 paddingBottom: insets.bottom,
             }}
         >
-            <Header />
+            {user.email && <Header />}
             {children}
         </View>
     );

@@ -5,9 +5,9 @@ import { View } from "react-native";
 import Button from "../components/common/Button";
 import CalculatorLayout from "../components/common/CalculatorLayout";
 import CuentaPartesIguales from "../components/CuentaPartesIguales";
-import CuentaPorPersona from "../components/CuentaPorPersona";
+import CuentaPorConsumo from "../components/CuentaPorConsumo";
 
-export default function Calculator({ navigation }) {
+export default function Calculator() {
     const [cuenta, setCuenta] = loadHook("useCuenta");
     const result = useMemo(() => {
         if (cuenta.dividirPor == "partesIguales") {
@@ -25,11 +25,11 @@ export default function Calculator({ navigation }) {
 
     return (
         <CalculatorLayout>
-            {cuenta.dividirPor == "partesIguales" && (
+            {cuenta.dividirPor == "enPartesIguales" && (
                 <CuentaPartesIguales result={result} />
             )}
-            {cuenta.dividirPor == "persona" && (
-                <CuentaPorPersona />
+            {cuenta.dividirPor == "porConsumo" && (
+                <CuentaPorConsumo />
             )}
             <View
                 style={{
