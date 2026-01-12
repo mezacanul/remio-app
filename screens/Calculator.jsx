@@ -10,25 +10,34 @@ import CuentaPorConsumo from "../components/CuentaPorConsumo";
 export default function Calculator() {
     const [cuenta, setCuenta] = loadHook("useCuenta");
     const result = useMemo(() => {
-        if (cuenta.dividirPor == "partesIguales") {
-            const total = Number(
-                cuenta.total.replace("$", "")
-            );
+        if (cuenta.dividirType == "partesIguales") {
+            let total;
+            if (typeof cuenta.total != "number") {
+                total = Number(
+                    cuenta.total.replace("$", "")
+                );
+            } else {
+                total = cuenta.total;
+            }
             const parsedResult = Number(
-                (total / cuenta.personas).toFixed(2)
+                (total / cuenta.invitados).toFixed(2)
             );
             return parsedResult;
         }
 
         return null;
-    }, [cuenta.dividirPor, cuenta.personas, cuenta.total]);
+    }, [
+        cuenta.dividirType,
+        cuenta.invitados,
+        cuenta.total,
+    ]);
 
     return (
         <CalculatorLayout>
-            {cuenta.dividirPor == "enPartesIguales" && (
+            {cuenta.dividirType == "enPartesIguales" && (
                 <CuentaPartesIguales result={result} />
             )}
-            {cuenta.dividirPor == "porConsumo" && (
+            {cuenta.dividirType == "porConsumo" && (
                 <CuentaPorConsumo />
             )}
             <View

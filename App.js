@@ -21,6 +21,7 @@ Nexus({
         total: null, // type: number || array
         invitados: null, // type: number || array
     }),
+    useCuentasList: Singleton([]),
     useUser: Singleton({
         email: null,
         token: null,

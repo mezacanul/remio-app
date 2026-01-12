@@ -1,15 +1,26 @@
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import {
+    StyleSheet,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import Logo from "./Logo";
+
 export default function Header() {
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <Logo />
-            <Ionicons
-                name="person-circle-sharp"
-                size={30}
-                // color="blue"
-            />
+            <TouchableOpacity
+                onPress={() => navigation.navigate("Home")}
+            >
+                <Ionicons
+                    name="person-circle-sharp"
+                    size={30}
+                    // color="blue"
+                />
+            </TouchableOpacity>
         </View>
     );
 }

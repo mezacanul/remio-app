@@ -1,44 +1,18 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { loadHook } from "lattice-design";
 import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
+    FlatList,
+    StyleSheet,
+    Text,
+    View,
 } from "react-native";
 import Button from "../components/common/Button";
 
 export default function MenuPrincipal() {
-    const [cuentas, setCuentas] = useState([]);
-
-    // function handleAddCuenta(name) {
-    //     const currentDate = format(
-    //         new Date(),
-    //         "dd 'de' MMMM",
-    //         {
-    //             locale: es,
-    //         }
-    //     );
-    //     setCuentas([
-    //         ...cuentas,
-    //         {
-    //             id: cuentas.length + 1,
-    //             name: name,
-    //             date: currentDate,
-    //         },
-    //     ]);
-    //     setIsAdding(false);
-    // }
-
-    // if (isAdding) {
-    //     return (
-    //         <NuevaCuentaForm
-    //             setIsAdding={setIsAdding}
-    //             handleAddCuenta={handleAddCuenta}
-    //         />
-    //     );
-    // }
+    const [cuentas, setCuentas] = loadHook(
+        "useCuentasList"
+    );
 
     return (
         <View style={homeStyles.container}>
@@ -115,10 +89,10 @@ function CuentaItem({ cuenta }) {
                     color="black"
                 />
                 <Text style={{ fontSize: 15 }}>
-                    {cuenta.name}
+                    {cuenta.titulo}
                 </Text>
             </View>
-            <Text>{cuenta.date}</Text>
+            <Text>{cuenta.fecha}</Text>
         </View>
     );
 }

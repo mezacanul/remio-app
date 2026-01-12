@@ -1,5 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 import { loadHook } from "lattice-design";
 import { useState } from "react";
 import {
@@ -17,6 +19,9 @@ import Button from "../components/common/Button";
 export default function NuevaCuenta() {
     const navigation = useNavigation();
     const [cuenta, setCuenta] = loadHook("useCuenta");
+    const [cuentas, setCuentas] = loadHook(
+        "useCuentasList"
+    );
     const [currentStep, setCurrentStep] = useState(0);
     const [form, setForm] = useState({
         titulo: "",
@@ -30,9 +35,30 @@ export default function NuevaCuenta() {
     };
 
     function handleCrearCuenta() {
+        const cuentaListObject = createCuentaObject(
+            form,
+            cuentas
+        );
         console.log(form);
+
         setCuenta(form);
+        setCuentas([...cuentas, cuentaListObject]);
         navigation.navigate("Calculator");
+    }
+
+    function createCuentaObject(form, cuentas) {
+        const currentDate = format(
+            new Date(),
+            "dd 'de' MMMM",
+            {
+                locale: es,
+            }
+        );
+        return {
+            id: cuentas.length + 1,
+            fecha: currentDate,
+            ...form,
+        };
     }
 
     return (

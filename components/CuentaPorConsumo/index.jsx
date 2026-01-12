@@ -52,9 +52,14 @@ export default function CuentaPorConsumo() {
     }, [invitados]);
 
     const faltante = useMemo(() => {
-        const totalCuenta = Number(
-            cuenta.total.replace("$", "")
-        );
+        let totalCuenta;
+        if (typeof cuenta.total != "number") {
+            totalCuenta = Number(
+                cuenta.total.replace("$", "")
+            );
+        } else {
+            totalCuenta = cuenta.total;
+        }
         return totalCuenta - Number(totalInvitados);
     }, [totalInvitados]);
 
