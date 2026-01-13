@@ -1,7 +1,12 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { loadHook } from "lattice-design";
 import { useMemo, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import {
+    FlatList,
+    StyleSheet,
+    Text,
+    View,
+} from "react-native";
 import Button from "../common/Button";
 import InvitadoForm from "./InvitadoForm";
 import InvitadoItem from "./InvitadoItem";
@@ -121,16 +126,21 @@ export default function CuentaPorConsumo() {
             )}
 
             {invitados.length > 0 && (
-                <View style={styles.invitadosContainer}>
-                    {invitados.map((invitado) => (
+                <FlatList
+                    data={invitados}
+                    keyExtractor={(item) => item.name}
+                    contentContainerStyle={
+                        styles.invitadosContainer
+                    }
+                    renderItem={({ item }) => (
                         <InvitadoItem
-                            key={invitado.name}
-                            invitado={invitado}
+                            key={item.name}
+                            invitado={item}
                             invitados={invitados}
                             setInvitados={setInvitados}
                         />
-                    ))}
-                </View>
+                    )}
+                />
             )}
         </View>
     );

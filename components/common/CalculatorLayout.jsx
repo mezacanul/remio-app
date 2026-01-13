@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { loadHook } from "lattice-design";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 
 const dividirPorText = {
     partesIguales: "En partes iguales",
@@ -38,7 +38,8 @@ export default function CalculatorLayout({ children }) {
             >
                 {children}
             </View>
-            <TouchableOpacity
+            
+            {/* <TouchableOpacity
                 onPress={handleReset}
                 style={{ marginBottom: 30 }}
             >
@@ -51,7 +52,7 @@ export default function CalculatorLayout({ children }) {
                 >
                     {"Volver a empezar"}
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     );
 }
