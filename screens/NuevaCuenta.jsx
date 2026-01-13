@@ -89,7 +89,7 @@ export default function NuevaCuenta() {
                                 ? "center"
                                 : "flex-start",
                         marginTop:
-                            currentStep === 3 ? 30 : 0,
+                            currentStep === 3 ? 30 : -80,
                     },
                 ]}
             >

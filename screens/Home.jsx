@@ -5,6 +5,7 @@ import {
     FlatList,
     StyleSheet,
     Text,
+    TouchableOpacity,
     View,
 } from "react-native";
 import Button from "../components/common/Button";
@@ -80,20 +81,33 @@ function TableHeader() {
 }
 
 function CuentaItem({ cuenta }) {
+    const navigation = useNavigation();
+    const [_, setCuenta] = loadHook("useCuenta");
+
+    function handleNavigateToCalculator() {
+        navigation.navigate("Calculator");
+        setCuenta(cuenta);
+    }
     return (
-        <View style={cuentaItemStyles.container}>
-            <View style={cuentaItemStyles.nameContainer}>
-                <MaterialCommunityIcons
-                    name="list-box-outline"
-                    size={20}
-                    color="black"
-                />
-                <Text style={{ fontSize: 15 }}>
-                    {cuenta.titulo}
-                </Text>
+        <TouchableOpacity
+            onPress={handleNavigateToCalculator}
+        >
+            <View style={cuentaItemStyles.container}>
+                <View
+                    style={cuentaItemStyles.nameContainer}
+                >
+                    <MaterialCommunityIcons
+                        name="list-box-outline"
+                        size={20}
+                        color="black"
+                    />
+                    <Text style={{ fontSize: 15 }}>
+                        {cuenta.titulo}
+                    </Text>
+                </View>
+                <Text>{cuenta.fecha}</Text>
             </View>
-            <Text>{cuenta.fecha}</Text>
-        </View>
+        </TouchableOpacity>
     );
 }
 

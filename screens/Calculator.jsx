@@ -1,5 +1,5 @@
-import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { loadHook } from "lattice-design";
+import { Share, UserRoundPlus } from "lucide-react-native";
 import { useMemo } from "react";
 import { View } from "react-native";
 import Button from "../components/common/Button";
@@ -44,21 +44,18 @@ export default function Calculator() {
                 style={{
                     flexDirection: "row",
                     gap: 5,
-                    width: "85%",
+                    width: "100%",
                     marginHorizontal: "auto",
                     marginBottom: 20,
                 }}
             >
                 <Button
                     fs={14}
-                    title={"Compartir Cuenta"}
+                    title={"Enviar Invitación"}
                     icon={
-                        <FontAwesome5
-                            // name="share-social-outline"
-                            name="whatsapp"
+                        <UserRoundPlus
                             size={20}
                             color="white"
-                            style={{ marginBottom: 2 }}
                         />
                     }
                     fw={"initial"}
@@ -67,17 +64,15 @@ export default function Calculator() {
                 />
                 <Button
                     fs={14}
-                    title={"Enviar Invitación"}
+                    title={"Compartir Cuenta"}
                     fw={"initial"}
                     style={{ flex: 1 }}
                     icon={
-                        <Ionicons
-                            name="send-outline"
+                        <Share
                             size={20}
                             color="white"
                         />
                     }
-                    // bgColor="green"
                 />
             </View>
         </CalculatorLayout>

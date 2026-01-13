@@ -30,7 +30,7 @@ export default function DividirOptions({
         <View style={styles.container}>
             <View
                 style={{
-                    gap: 10,
+                    gap: 20,
                     width: "100%",
                     alignItems: "center",
                     justifyContent: "center",
@@ -72,7 +72,7 @@ export default function DividirOptions({
 
 function SelectTotalType({ selectType }) {
     return (
-        <>
+        <View style={styles.selectTotalTypeContainer}>
             <Button
                 title="Fijo"
                 fw="initial"
@@ -93,7 +93,7 @@ function SelectTotalType({ selectType }) {
                     selectType("aportaciones");
                 }}
             />
-        </>
+        </View>
     );
 }
 
@@ -147,5 +147,10 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         width: "100%",
+    },
+    selectTotalTypeContainer: {
+        gap: 10,
+        width: "100%",
+        alignItems: "center",
     },
 });
