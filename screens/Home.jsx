@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
+import AdsBanner from "../components/AdsBanner";
 import Button from "../components/common/Button";
 
 export default function MenuPrincipal() {
@@ -16,9 +17,12 @@ export default function MenuPrincipal() {
     );
 
     return (
-        <View style={homeStyles.container}>
-            <HomeHeader />
-            <MisCuentasList cuentas={cuentas} />
+        <View style={styles.container}>
+            <View style={homeStyles.container}>
+                <HomeHeader />
+                <MisCuentasList cuentas={cuentas} />
+            </View>
+            <AdsBanner />
         </View>
     );
 }
@@ -111,10 +115,18 @@ function CuentaItem({ cuenta }) {
     );
 }
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        gap: "2%",
+    },
+});
+
 const homeStyles = StyleSheet.create({
     container: {
         position: "relative",
-        flex: 1,
+        // flex: 1,
+        height: "65%",
         borderWidth: 2,
         // borderColor: "dodgerblue",
         borderColor: "royalblue",
