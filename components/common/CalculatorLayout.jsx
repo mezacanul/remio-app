@@ -1,6 +1,6 @@
-import { useNavigation } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { loadHook } from "lattice-design";
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 const dividirPorText = {
     partesIguales: "En partes iguales",
@@ -8,28 +8,22 @@ const dividirPorText = {
 };
 
 export default function CalculatorLayout({ children }) {
-    const [cuenta, setCuenta] = loadHook("useCuenta");
-    const navigation = useNavigation();
-
-    const handleReset = () => {
-        setCuenta({
-            total: "",
-            dividirPor: null,
-            personas: null,
-        });
-        navigation.navigate("Onboarding");
-    };
+    const [cuenta] = loadHook("useCuenta");
 
     return (
         <View style={{ flex: 1 }}>
-            <View style={{ gap: 7, marginTop: 15 }}>
+            <View style={styles.infoContainer}>
+                <View style={styles.tituloContainer}>
+                    <MaterialCommunityIcons
+                        name="list-box-outline"
+                        size={20}
+                        color="blue"
+                    />
+                    <Text style={styles.tituloText}>
+                        {cuenta.titulo}
+                    </Text>
+                </View>
                 <TotalInfo />
-                {cuenta.dividirPor &&
-                    cuenta.dividirPor != "persona" && (
-                        <DividirPorInfo />
-                    )}
-                {cuenta.dividirPor == "partesIguales" &&
-                    cuenta.personas > 0 && <PersonasInfo />}
             </View>
             <View
                 style={{
@@ -38,34 +32,36 @@ export default function CalculatorLayout({ children }) {
             >
                 {children}
             </View>
-            
-            {/* <TouchableOpacity
-                onPress={handleReset}
-                style={{ marginBottom: 30 }}
-            >
-                <Text
-                    style={{
-                        textAlign: "center",
-                        textDecorationLine: "underline",
-                        fontSize: 16,
-                    }}
-                >
-                    {"Volver a empezar"}
-                </Text>
-            </TouchableOpacity> */}
         </View>
     );
 }
 
+const styles = StyleSheet.create({
+    tituloContainer: {
+        borderBottomWidth: 1,
+        paddingBottom: 3,
+        marginBottom: 10,
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 5,
+    },
+    tituloText: {
+        textAlign: "center",
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "blue",
+    },
+    infoContainer: {
+        gap: 7,
+        marginTop: 15,
+    },
+});
+
 function TotalInfo() {
     const [cuenta, setCuenta] = loadHook("useCuenta");
     return (
-        <View
-            style={{
-                // borderWidth: 1,
-                // borderColor: "lightgray",
-            }}
-        >
+        <View>
             <Text
                 style={{
                     textAlign: "center",

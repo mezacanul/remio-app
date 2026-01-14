@@ -1,6 +1,5 @@
 import { loadHook } from "lattice-design";
 import { Share, UserRoundPlus } from "lucide-react-native";
-import { useMemo } from "react";
 import { StyleSheet, View } from "react-native";
 import Button from "../components/common/Button";
 import CalculatorLayout from "../components/common/CalculatorLayout";
@@ -9,33 +8,33 @@ import CuentaPorConsumo from "../components/CuentaPorConsumo";
 
 export default function Calculator() {
     const [cuenta, setCuenta] = loadHook("useCuenta");
-    const result = useMemo(() => {
-        if (cuenta.dividirType == "partesIguales") {
-            let total;
-            if (typeof cuenta.total != "number") {
-                total = Number(
-                    cuenta.total.replace("$", "")
-                );
-            } else {
-                total = cuenta.total;
-            }
-            const parsedResult = Number(
-                (total / cuenta.invitados).toFixed(2)
-            );
-            return parsedResult;
-        }
+    // const result = useMemo(() => {
+    //     if (cuenta.dividirType == "partesIguales") {
+    //         let total;
+    //         if (typeof cuenta.total != "number") {
+    //             total = Number(
+    //                 cuenta.total.replace("$", "")
+    //             );
+    //         } else {
+    //             total = cuenta.total;
+    //         }
+    //         const parsedResult = Number(
+    //             (total / cuenta.invitados).toFixed(2)
+    //         );
+    //         return parsedResult;
+    //     }
 
-        return null;
-    }, [
-        cuenta.dividirType,
-        cuenta.invitados,
-        cuenta.total,
-    ]);
+    //     return null;
+    // }, [
+    //     cuenta.dividirType,
+    //     cuenta.invitados,
+    //     cuenta.total,
+    // ]);
 
     return (
         <CalculatorLayout>
             {cuenta.dividirType == "enPartesIguales" && (
-                <CuentaPartesIguales result={result} />
+                <CuentaPartesIguales />
             )}
             {cuenta.dividirType == "porConsumo" && (
                 <CuentaPorConsumo />
