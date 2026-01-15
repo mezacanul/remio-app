@@ -1,14 +1,6 @@
-import {
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react-native";
 import { useMemo, useState } from "react";
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { View } from "react-native";
+import CollapsableTrigger from "../common/CollapsableTrigger";
 import ConsumoList from "./ConsumoList";
 
 export default function InvitadoItem({
@@ -41,43 +33,14 @@ export default function InvitadoItem({
 
     return (
         <View>
-            <Pressable
+            <CollapsableTrigger
+                isOpen={isOpen}
                 onPress={() => {
                     setIsOpen(!isOpen);
                 }}
-            >
-                <View style={styles.invitadoPressable}>
-                    {isOpen ? (
-                        <ChevronUp size={20} />
-                    ) : (
-                        <ChevronDown size={20} />
-                    )}
-                    <Text style={styles.invitadoName}>
-                        {invitado.name}
-                    </Text>
-                    <Text
-                        style={[
-                            styles.invitadoTotal,
-                            {
-                                fontWeight:
-                                    total > 0
-                                        ? "bold"
-                                        : "normal",
-                                color:
-                                    total > 0
-                                        ? "blue"
-                                        : "gray",
-                                marginRight:
-                                    total > 0 ? 10 : 25,
-                            },
-                        ]}
-                    >
-                        {total > 0
-                            ? `$${Number(total).toFixed(2)}`
-                            : "$ --"}
-                    </Text>
-                </View>
-            </Pressable>
+                title={invitado.name}
+                total={total}
+            />
             {isOpen && (
                 <ConsumoList
                     items={invitado.items}
@@ -87,19 +50,3 @@ export default function InvitadoItem({
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    invitadoPressable: {
-        flexDirection: "row",
-        gap: 5,
-        width: "100%",
-        alignItems: "center",
-    },
-    invitadoName: {
-        flex: 1,
-        fontSize: 18,
-    },
-    invitadoTotal: {
-        fontSize: 16,
-    },
-});

@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { loadHook } from "lattice-design";
 import { StyleSheet, Text, View } from "react-native";
+import AportacionesInfo from "../CalculatorLayout/AportacionesInfo";
 
 const dividirPorText = {
     partesIguales: "En partes iguales",
@@ -13,17 +14,13 @@ export default function CalculatorLayout({ children }) {
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.infoContainer}>
-                <View style={styles.tituloContainer}>
-                    <MaterialCommunityIcons
-                        name="list-box-outline"
-                        size={20}
-                        color="blue"
-                    />
-                    <Text style={styles.tituloText}>
-                        {cuenta.titulo}
-                    </Text>
-                </View>
-                <TotalInfo />
+                <Titulo cuenta={cuenta} />
+                {typeof cuenta.total == "number" && (
+                    <TotalInfo />
+                )}
+                {typeof cuenta.total != "number" && (
+                    <AportacionesInfo />
+                )}
             </View>
             <View
                 style={{
@@ -32,6 +29,21 @@ export default function CalculatorLayout({ children }) {
             >
                 {children}
             </View>
+        </View>
+    );
+}
+
+function Titulo({ cuenta }) {
+    return (
+        <View style={styles.tituloContainer}>
+            <MaterialCommunityIcons
+                name="list-box-outline"
+                size={20}
+                color="blue"
+            />
+            <Text style={styles.tituloText}>
+                {cuenta.titulo}
+            </Text>
         </View>
     );
 }
@@ -79,47 +91,5 @@ function TotalInfo() {
                 {cuenta.total}
             </Text>
         </View>
-    );
-}
-
-function DividirPorInfo() {
-    const [cuenta, setCuenta] = loadHook("useCuenta");
-    return (
-        <>
-            <>
-                <Text style={{ textAlign: "center" }}>
-                    {"Dividido"}
-                </Text>
-                <Text
-                    style={{
-                        textAlign: "center",
-                        fontSize: 18,
-                        fontWeight: "bold",
-                    }}
-                >
-                    {dividirPorText[cuenta.dividirPor]}
-                </Text>
-            </>
-        </>
-    );
-}
-
-function PersonasInfo() {
-    const [cuenta, setCuenta] = loadHook("useCuenta");
-    return (
-        <>
-            <Text style={{ textAlign: "center" }}>
-                {"Entre"}
-            </Text>
-            <Text
-                style={{
-                    textAlign: "center",
-                    fontSize: 18,
-                    fontWeight: "bold",
-                }}
-            >
-                {`${cuenta.personas} personas`}
-            </Text>
-        </>
     );
 }

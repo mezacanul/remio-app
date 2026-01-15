@@ -1,6 +1,10 @@
 const isGreaterThanZero = (total) => {
-  const number = total.replace("$", "");
-  return Number(number) > 0;
+    const number = total.replace("$", "");
+    return Number(number) > 0;
 };
 
-export { isGreaterThanZero };
+function toCurrency(amount) {
+    return `$${amount.toFixed(2)}`;
+}
+
+export { isGreaterThanZero, toCurrency };
