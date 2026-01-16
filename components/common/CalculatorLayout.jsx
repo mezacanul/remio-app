@@ -63,13 +63,13 @@ function Titulo({ cuenta, setCuenta }) {
                     </Text>
                 </View>
 
-                {"Fecha"}
+                {/* Fecha */}
                 <Text style={styles.fechaText}>
                     {cuenta.fecha}
                 </Text>
             </View>
 
-            {"Close button"}
+            {/* Close button */}
             <TouchableOpacity
                 onPress={() => {
                     navigation.navigate("Home");

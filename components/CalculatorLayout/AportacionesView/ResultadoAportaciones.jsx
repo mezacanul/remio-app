@@ -9,7 +9,12 @@ export default function ResultadoAportaciones() {
         return cuenta.total.map((aportador) => {
             return {
                 nombre: aportador.nombre,
-                total: aportador.aportaciones.length,
+                total:
+                    aportador.aportaciones.reduce(
+                        (acc, current) =>
+                            acc + current.valor,
+                        0
+                    ) / cuenta.invitados,
             };
         });
     }, [cuenta.total, cuenta.invitados]);
@@ -17,7 +22,7 @@ export default function ResultadoAportaciones() {
     return (
         <View style={styles.resultadoContainer}>
             <Text style={styles.resultadoTitle}>
-                {"Correspondiente a cada persona:"}
+                {"Corresponde a cada persona:"}
             </Text>
 
             {result.map((item, index) => (
@@ -40,6 +45,10 @@ const styles = StyleSheet.create({
         textAlign: "center",
         width: "60%",
         marginHorizontal: "auto",
-        color: "blue",
+        marginBottom: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: "gray",
+        paddingBottom: 5,
+        // color: "blue",
     },
 });

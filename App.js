@@ -17,7 +17,7 @@ const Stack = createNativeStackNavigator();
 
 Nexus({
     useCuenta: Singleton(INITIAL_STATES.cuenta),
-    useCuentasList: Singleton(INITIAL_STATES.cuentas),
+    useCuentasList: Singleton(INITIAL_STATES.cuentasList),
     useUser: Singleton(INITIAL_STATES.user),
 });
 

@@ -1,5 +1,6 @@
+import { loadHook } from "lattice-design";
 import { Check } from "lucide-react-native";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
     StyleSheet,
     Text,
@@ -10,10 +11,18 @@ import { toCurrency } from "../../../utils/main";
 import Button from "../../common/Button";
 import CollapsableTrigger from "../../common/CollapsableTrigger";
 
-export default function AportadorItem({ aportador }) {
+export default function AportadorItem({
+    aportador,
+    index,
+}) {
+    const [cuenta, setCuenta] = loadHook("useCuenta");
     const [isOpen, setIsOpen] = useState(false);
     const [items, setItems] = useState([]);
-    
+
+    useEffect(() => {
+        setItems(aportador.aportaciones);
+    }, []);
+
     const total = useMemo(() => {
         return items.reduce(
             (acc, item) => acc + item.valor,
@@ -22,7 +31,20 @@ export default function AportadorItem({ aportador }) {
     }, [items]);
 
     function handleItemAdd(item) {
-        setItems([...items, item]);
+        const newItems = [...items, item];
+        setItems(newItems);
+        setCuenta({
+            ...cuenta,
+            total: cuenta.total.map((current) => {
+                if (current.id === aportador.id) {
+                    return {
+                        ...current,
+                        aportaciones: newItems,
+                    };
+                }
+                return current;
+            }),
+        });
     }
 
     return (
