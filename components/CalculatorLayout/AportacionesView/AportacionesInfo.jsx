@@ -1,9 +1,10 @@
+import { randomUUID } from "expo-crypto";
 import { loadHook } from "lattice-design";
 import { useState } from "react";
 import { Text, View } from "react-native";
-import Button from "../common/Button";
+import Button from "../../common/Button";
+import AportacionesList from "./AportacionesList";
 import AportacionForm from "./AportacionForm";
-import AportadorItem from "./AportadorItem";
 
 export default function AportacionesInfo() {
     const [cuenta, setCuenta] = loadHook("useCuenta");
@@ -15,17 +16,14 @@ export default function AportacionesInfo() {
             ...cuenta,
             total: [
                 ...cuenta.total,
-                { nombre: name, aportaciones: [] },
+                {
+                    id: randomUUID(),
+                    nombre: name,
+                    aportaciones: [],
+                },
             ],
         });
     };
-
-    function handleInvitadosChange(text) {
-        setCuenta({
-            ...cuenta,
-            invitados: Number(text),
-        });
-    }
 
     return (
         <View style={{ gap: 10, alignItems: "center" }}>
@@ -57,26 +55,6 @@ export default function AportacionesInfo() {
             )}
 
             <AportacionesList />
-        </View>
-    );
-}
-
-function AportacionesList() {
-    const [cuenta] = loadHook("useCuenta");
-    return (
-        <View
-            style={{
-                width: "100%",
-                marginVertical: 15,
-                gap: 10,
-            }}
-        >
-            {cuenta.total.map((aportador, index) => (
-                <AportadorItem
-                    key={index}
-                    aportador={aportador}
-                />
-            ))}
         </View>
     );
 }

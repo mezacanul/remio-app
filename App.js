@@ -11,21 +11,14 @@ import Login from "./screens/Login";
 import NuevaCuenta from "./screens/NuevaCuenta";
 import Onboarding from "./screens/Onboarding";
 import PreOptions from "./screens/PreOptions";
+import { INITIAL_STATES } from "./utils/constants/initialStates";
 
 const Stack = createNativeStackNavigator();
 
 Nexus({
-    useCuenta: Singleton({
-        titulo: null,
-        dividirType: null,
-        total: null, // type: number || array
-        invitados: null, // type: number || array
-    }),
-    useCuentasList: Singleton([]),
-    useUser: Singleton({
-        email: null,
-        token: null,
-    }),
+    useCuenta: Singleton(INITIAL_STATES.cuenta),
+    useCuentasList: Singleton(INITIAL_STATES.cuentas),
+    useUser: Singleton(INITIAL_STATES.user),
 });
 
 export default function App() {

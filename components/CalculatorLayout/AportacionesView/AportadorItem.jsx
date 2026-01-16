@@ -6,13 +6,14 @@ import {
     TextInput,
     View,
 } from "react-native";
-import { toCurrency } from "../../utils/main";
-import Button from "../common/Button";
-import CollapsableTrigger from "../common/CollapsableTrigger";
+import { toCurrency } from "../../../utils/main";
+import Button from "../../common/Button";
+import CollapsableTrigger from "../../common/CollapsableTrigger";
 
 export default function AportadorItem({ aportador }) {
     const [isOpen, setIsOpen] = useState(false);
     const [items, setItems] = useState([]);
+    
     const total = useMemo(() => {
         return items.reduce(
             (acc, item) => acc + item.valor,

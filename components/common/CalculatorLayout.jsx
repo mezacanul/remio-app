@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { INITIAL_STATES } from "../../utils/constants/initialStates";
 import { toCurrency } from "../../utils/main";
-import AportacionesInfo from "../CalculatorLayout/AportacionesInfo";
+import AportacionesInfo from "../CalculatorLayout/AportacionesView/AportacionesInfo";
 
 const dividirPorText = {
     partesIguales: "En partes iguales",
@@ -51,64 +51,39 @@ function Titulo({ cuenta, setCuenta }) {
 
     return (
         <View style={styles.tituloContainer}>
-            <View style={styles.tituloWrapper}>
-                <MaterialCommunityIcons
-                    name="list-box-outline"
-                    size={20}
-                    color="blue"
-                />
-                <Text style={styles.tituloText}>
-                    {cuenta.titulo}
+            <View>
+                <View style={styles.tituloWrapper}>
+                    <MaterialCommunityIcons
+                        name="list-box-outline"
+                        size={20}
+                        color="blue"
+                    />
+                    <Text style={styles.tituloText}>
+                        {cuenta.titulo}
+                    </Text>
+                </View>
+
+                {"Fecha"}
+                <Text style={styles.fechaText}>
+                    {cuenta.fecha}
                 </Text>
             </View>
+
+            {"Close button"}
             <TouchableOpacity
-                // style={{
-                //     margin: "auto",
-                // }}
                 onPress={() => {
                     navigation.navigate("Home");
                     setCuenta(INITIAL_STATES.cuenta);
                 }}
             >
                 <X
-                    size={18}
+                    size={22}
                     color="gray"
                 />
             </TouchableOpacity>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    tituloContainer: {
-        borderBottomWidth: 1,
-        paddingBottom: 7,
-        marginBottom: 10,
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        // gap: 5,
-        width: "100%",
-    },
-    tituloWrapper: {
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        gap: 5,
-        margin: "auto",
-        // alignSelf: "center",
-    },
-    tituloText: {
-        textAlign: "center",
-        fontSize: 20,
-        fontWeight: "bold",
-        color: "blue",
-    },
-    infoContainer: {
-        gap: 7,
-        marginTop: 15,
-    },
-});
 
 function TotalInfo() {
     const [cuenta, setCuenta] = loadHook("useCuenta");
@@ -134,3 +109,39 @@ function TotalInfo() {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    tituloContainer: {
+        borderBottomWidth: 1,
+        paddingBottom: 5,
+        marginBottom: 10,
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        // gap: 5,
+        width: "100%",
+    },
+    tituloWrapper: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 2,
+        // margin: "auto",
+        // alignSelf: "center",
+    },
+    tituloText: {
+        textAlign: "center",
+        fontSize: 20,
+        fontWeight: "bold",
+        color: "blue",
+    },
+    infoContainer: {
+        gap: 7,
+        marginTop: 15,
+    },
+    fechaText: {
+        marginTop: 5,
+        fontSize: 14,
+        color: "gray",
+    },
+});

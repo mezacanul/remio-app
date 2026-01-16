@@ -1,7 +1,7 @@
 import { Check } from "lucide-react-native";
 import { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
-import Button from "../common/Button";
+import Button from "../../common/Button";
 
 export default function AportacionForm({ onAdd }) {
     const [name, setName] = useState("");
