@@ -1,25 +1,30 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import { loadHook } from "lattice-design";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
     FlatList,
     StyleSheet,
     Text,
     View,
 } from "react-native";
+import { updateByObjectID } from "../../utils/main";
 import Button from "../common/Button";
 import InvitadoForm from "./InvitadoForm";
 import InvitadoItem from "./InvitadoItem";
 
 export default function CuentaPorConsumo() {
+    const [cuentas, setCuentas] = loadHook(
+        "useCuentasList"
+    );
     const [cuenta, setCuenta] = loadHook("useCuenta");
-    const [invitados, setInvitados] = useState([]);
+    // const [invitados, setInvitados] = useState([]);
     const [isAdding, setIsAdding] = useState({
         invitado: false,
         consumo: false,
     });
+
     const totalInvitados = useMemo(() => {
-        return invitados.reduce((acc, invitado) => {
+        return cuenta.invitados.reduce((acc, invitado) => {
             return (
                 acc +
                 Number(
@@ -33,7 +38,20 @@ export default function CuentaPorConsumo() {
                 )
             );
         }, 0);
-    }, [invitados]);
+    }, [cuenta.invitados]);
+
+    // useEffect(() => {
+    //     setCuenta({
+    //         ...cuenta,
+    //         invitados: invitados,
+    //     });
+    // }, [invitados]);
+
+    useEffect(() => {
+        setCuentas(
+            updateByObjectID(cuentas, cuenta.id, cuenta)
+        );
+    }, [cuenta]);
 
     const faltante = useMemo(() => {
         let totalCuenta;
@@ -48,7 +66,10 @@ export default function CuentaPorConsumo() {
     }, [totalInvitados]);
 
     const handleAddInvitado = (nuevoInvitado) => {
-        setInvitados([...invitados, nuevoInvitado]);
+        setCuenta({
+            ...cuenta,
+            invitados: [...cuenta.invitados, nuevoInvitado],
+        });
         setIsAdding({
             invitado: false,
             consumo: false,
@@ -125,9 +146,9 @@ export default function CuentaPorConsumo() {
                 />
             )}
 
-            {invitados.length > 0 && (
+            {cuenta.invitados.length > 0 && (
                 <FlatList
-                    data={invitados}
+                    data={cuenta.invitados}
                     keyExtractor={(item) => item.name}
                     contentContainerStyle={
                         styles.invitadosContainer
@@ -136,8 +157,14 @@ export default function CuentaPorConsumo() {
                         <InvitadoItem
                             key={item.name}
                             invitado={item}
-                            invitados={invitados}
-                            setInvitados={setInvitados}
+                            invitados={cuenta.invitados}
+                            // setInvitados={setInvitados}
+                            setInvitados={(invitados) => {
+                                setCuenta({
+                                    ...cuenta,
+                                    invitados: invitados,
+                                });
+                            }}
                         />
                     )}
                 />

@@ -23,6 +23,21 @@ export default function ConsumoItemForm({
             <TextInput
                 style={[
                     mainStyles.inputBox,
+                    { flex: 4, paddingVertical: 5 },
+                ]}
+                placeholder="Nombre del item"
+                placeholderTextColor="gray"
+                value={consumoForm.item}
+                onChangeText={(text) =>
+                    setConsumoForm({
+                        ...consumoForm,
+                        item: text,
+                    })
+                }
+            />
+            <TextInput
+                style={[
+                    mainStyles.inputBox,
                     { flex: 1, textAlign: "center" },
                 ]}
                 keyboardType="numeric"
@@ -34,21 +49,6 @@ export default function ConsumoItemForm({
                     setConsumoForm({
                         ...consumoForm,
                         quantity: text,
-                    })
-                }
-            />
-            <TextInput
-                style={[
-                    mainStyles.inputBox,
-                    { flex: 4, paddingVertical: 5 },
-                ]}
-                placeholder="Nombre del item"
-                placeholderTextColor="gray"
-                value={consumoForm.item}
-                onChangeText={(text) =>
-                    setConsumoForm({
-                        ...consumoForm,
-                        item: text,
                     })
                 }
             />

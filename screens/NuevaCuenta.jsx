@@ -45,6 +45,8 @@ export default function NuevaCuenta() {
     }
 
     function createCuentaObject(form) {
+        // console.log("dividirType: ", form.dividirType);
+
         const currentDate = format(
             new Date(),
             "dd 'de' MMMM",
@@ -53,9 +55,13 @@ export default function NuevaCuenta() {
             }
         );
         return {
+            ...form,
             id: randomUUID(),
             fecha: currentDate,
-            ...form,
+            invitados:
+                form.dividirType == "porConsumo"
+                    ? []
+                    : null,
         };
     }
 
