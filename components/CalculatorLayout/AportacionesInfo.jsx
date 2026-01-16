@@ -1,8 +1,7 @@
 import { loadHook } from "lattice-design";
-import { useMemo, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Text, View } from "react-native";
 import Button from "../common/Button";
-import InvitadosInput from "../CuentaPartesIguales/InvitadosInput";
 import AportacionForm from "./AportacionForm";
 import AportadorItem from "./AportadorItem";
 
@@ -58,15 +57,6 @@ export default function AportacionesInfo() {
             )}
 
             <AportacionesList />
-
-            <InvitadosInput
-                handleInvitadosChange={
-                    handleInvitadosChange
-                }
-                cuenta={cuenta}
-            />
-
-            <Resultado />
         </View>
     );
 }
@@ -90,68 +80,3 @@ function AportacionesList() {
         </View>
     );
 }
-
-function Resultado() {
-    const [cuenta] = loadHook("useCuenta");
-    const result = useMemo(() => {
-        return cuenta.total.map((aportador) => {
-            return {
-                nombre: aportador.nombre,
-                total: aportador.aportaciones.length,
-            };
-        });
-    }, [cuenta.total, cuenta.invitados]);
-
-    return (
-        <View style={styles.resultadoContainer}>
-            <Text style={styles.resultadoTitle}>
-                {"Correspondiente a cada persona:"}
-            </Text>
-
-            {result.map((item, index) => (
-                <ResultadoItem
-                    key={index}
-                    item={item}
-                />
-            ))}
-        </View>
-    );
-}
-
-function ResultadoItem({ item }) {
-    return (
-        <View style={styles.resultadoItemContainer}>
-            <Text style={styles.resultadoItemText}>
-                {item.nombre}
-            </Text>
-            <Text style={styles.resultadoItemText}>
-                {item.total}
-            </Text>
-        </View>
-    );
-}
-
-const styles = StyleSheet.create({
-    resultadoContainer: {
-        width: "100%",
-        marginVertical: 15,
-        gap: 10,
-    },
-    resultadoTitle: {
-        textAlign: "center",
-        width: "60%",
-        marginHorizontal: "auto",
-        color: "blue",
-    },
-    resultadoItemContainer: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
-    resultadoItemText: {
-        fontWeight: "bold",
-    },
-    resultadoItemValue: {
-        color: "green",
-    },
-});

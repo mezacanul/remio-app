@@ -16,11 +16,13 @@ export default function DividirOptions({
             setForm({
                 ...form,
                 total: 0,
+                invitados: 0,
             });
         } else if (type === "aportaciones") {
             setForm({
                 ...form,
                 total: [],
+                invitados: 0,
             });
             handleNext(3);
         }

@@ -7,4 +7,10 @@ function toCurrency(amount) {
     return `$${amount.toFixed(2)}`;
 }
 
-export { isGreaterThanZero, toCurrency };
+function updateByObjectID(array, ID, newObject) {
+    return array.map((item) =>
+        item.id === ID ? newObject : item
+    );
+}
+
+export { isGreaterThanZero, toCurrency, updateByObjectID };

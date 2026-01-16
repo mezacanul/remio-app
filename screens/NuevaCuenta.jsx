@@ -2,6 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { randomUUID } from "expo-crypto";
 import { loadHook } from "lattice-design";
 import { useState } from "react";
 import {
@@ -35,18 +36,15 @@ export default function NuevaCuenta() {
     };
 
     function handleCrearCuenta() {
-        const cuentaListObject = createCuentaObject(
-            form,
-            cuentas
-        );
-        console.log(form);
+        const cuentaListObject = createCuentaObject(form);
+        console.log(cuentaListObject);
 
-        setCuenta(form);
+        setCuenta(cuentaListObject);
         setCuentas([...cuentas, cuentaListObject]);
         navigation.navigate("Calculator");
     }
 
-    function createCuentaObject(form, cuentas) {
+    function createCuentaObject(form) {
         const currentDate = format(
             new Date(),
             "dd 'de' MMMM",
@@ -55,7 +53,7 @@ export default function NuevaCuenta() {
             }
         );
         return {
-            id: cuentas.length + 1,
+            id: randomUUID(),
             fecha: currentDate,
             ...form,
         };

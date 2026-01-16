@@ -1,6 +1,15 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { loadHook } from "lattice-design";
-import { StyleSheet, Text, View } from "react-native";
+import { X } from "lucide-react-native";
+import {
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
+import { INITIAL_STATES } from "../../utils/constants/initialStates";
+import { toCurrency } from "../../utils/main";
 import AportacionesInfo from "../CalculatorLayout/AportacionesInfo";
 
 const dividirPorText = {
@@ -9,18 +18,22 @@ const dividirPorText = {
 };
 
 export default function CalculatorLayout({ children }) {
-    const [cuenta] = loadHook("useCuenta");
+    const [cuenta, setCuenta] = loadHook("useCuenta");
 
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.infoContainer}>
-                <Titulo cuenta={cuenta} />
+                <Titulo
+                    cuenta={cuenta}
+                    setCuenta={setCuenta}
+                />
                 {typeof cuenta.total == "number" && (
                     <TotalInfo />
                 )}
-                {typeof cuenta.total != "number" && (
-                    <AportacionesInfo />
-                )}
+                {typeof cuenta.total != "number" &&
+                    cuenta.total != null && (
+                        <AportacionesInfo />
+                    )}
             </View>
             <View
                 style={{
@@ -33,17 +46,35 @@ export default function CalculatorLayout({ children }) {
     );
 }
 
-function Titulo({ cuenta }) {
+function Titulo({ cuenta, setCuenta }) {
+    const navigation = useNavigation();
+
     return (
         <View style={styles.tituloContainer}>
-            <MaterialCommunityIcons
-                name="list-box-outline"
-                size={20}
-                color="blue"
-            />
-            <Text style={styles.tituloText}>
-                {cuenta.titulo}
-            </Text>
+            <View style={styles.tituloWrapper}>
+                <MaterialCommunityIcons
+                    name="list-box-outline"
+                    size={20}
+                    color="blue"
+                />
+                <Text style={styles.tituloText}>
+                    {cuenta.titulo}
+                </Text>
+            </View>
+            <TouchableOpacity
+                // style={{
+                //     margin: "auto",
+                // }}
+                onPress={() => {
+                    navigation.navigate("Home");
+                    setCuenta(INITIAL_STATES.cuenta);
+                }}
+            >
+                <X
+                    size={18}
+                    color="gray"
+                />
+            </TouchableOpacity>
         </View>
     );
 }
@@ -51,12 +82,21 @@ function Titulo({ cuenta }) {
 const styles = StyleSheet.create({
     tituloContainer: {
         borderBottomWidth: 1,
-        paddingBottom: 3,
+        paddingBottom: 7,
         marginBottom: 10,
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        // gap: 5,
+        width: "100%",
+    },
+    tituloWrapper: {
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
         gap: 5,
+        margin: "auto",
+        // alignSelf: "center",
     },
     tituloText: {
         textAlign: "center",
@@ -73,7 +113,7 @@ const styles = StyleSheet.create({
 function TotalInfo() {
     const [cuenta, setCuenta] = loadHook("useCuenta");
     return (
-        <View>
+        <View style={{ gap: 5 }}>
             <Text
                 style={{
                     textAlign: "center",
@@ -86,9 +126,10 @@ function TotalInfo() {
                     textAlign: "center",
                     fontSize: 25,
                     fontWeight: "bold",
+                    color: "blue",
                 }}
             >
-                {cuenta.total}
+                {toCurrency(cuenta.total)}
             </Text>
         </View>
     );
