@@ -10,4 +10,5 @@ export const INITIAL_STATES = {
         email: null,
         token: null,
     },
+    isViewMode: false,
 };

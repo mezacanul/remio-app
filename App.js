@@ -19,6 +19,7 @@ Nexus({
     useCuenta: Singleton(INITIAL_STATES.cuenta),
     useCuentasList: Singleton(INITIAL_STATES.cuentasList),
     useUser: Singleton(INITIAL_STATES.user),
+    useIsViewMode: Singleton(INITIAL_STATES.isViewMode),
 });
 
 export default function App() {

@@ -42,7 +42,7 @@ export default function ConsumoItemForm({
                 ]}
                 keyboardType="numeric"
                 returnKeyType="done"
-                placeholder="Q"
+                placeholder="Cant."
                 placeholderTextColor="gray"
                 value={consumoForm.quantity}
                 onChangeText={(text) =>

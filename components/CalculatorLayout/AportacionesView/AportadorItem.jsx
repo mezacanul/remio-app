@@ -133,6 +133,7 @@ function ItemForm({ onAddItem }) {
                     { width: "20%", textAlign: "center" },
                 ]}
                 placeholder="Valor"
+                placeholderTextColor="gray"
                 value={form.valor}
                 keyboardType="numeric"
                 returnKeyType="done"
